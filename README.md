@@ -26,5 +26,6 @@ The Figma design for the application can be found [here](https://www.figma.com/f
 - Fork this repository into a private repository to get started. As you work please commit regularly so that we can have an idea of how you work. Submissions that go straight from initial commit to final commit will not be accepted. You have 4 days to complete the task.
 - Please execute this task to the best of your ability. We want to see your best possible work. This means thinking through possible edge cases and handling them. Like we said earlier this task is quite similar to the day to day activities you will be carrying out here.
 - When you are done, invite @olamileke, @adebay8, @onuche1 and @Femi-Kasali as collaborators on the repository.
+- Also send an email to okasali@wazobia.tech to serve as a notification of your completion of the assessment. Make sure to cc ofambegbe@wazobia.tech, oadebayo@wazobia.tech and nadejoh@wazobia.tech.
 
 If you have any questions, feel free to email ofambegbe@wazobia.tech or oadebayo@wazobia.tech. Good luck!
