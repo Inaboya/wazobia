@@ -202,7 +202,7 @@ export default {
         console.log(data);
 
 
-        if (data.statusCode === 201) {
+        if (data.user) {
           this.loading = false;
           alert(data.message);
           this.$router.push("/dashboard");

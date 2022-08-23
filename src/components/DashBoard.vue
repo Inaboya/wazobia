@@ -1,26 +1,34 @@
 <template>
   <div class="dashboard">
+    <div class="verify">
+      <p class="verify-text">
+      You have not verified your email address.  Click <button class="verify-button" @click="sendVerify">here</button> to send a verifcation link
+      </p>
+    </div>
     <nav>
       <div class="dashboard-part">
         <h2>DashBoard</h2>
       </div>
 
       <div class="dashboard-part-2">
-        <h2>John Doe</h2>
+        <h2>{{ `${first_name} ${last_name}` }}</h2>
         <img src="../assets/dropdown.png" alt="dropdown" />
       </div>
     </nav>
 
     <div class="dashboard-box">
       <div class="dashboard-container">
-
-        <div class="dashboard-boxing" v-if="itemsList.length > 0" >
-          <div class="dashboard-container-items" v-for="item in itemsList" :key="item._id">
+        <div class="dashboard-boxing" v-if="itemsList.length > 0">
+          <div
+            class="dashboard-container-items"
+            v-for="item in itemsList"
+            :key="item._id"
+          >
             <label class="p-text">Name</label>
-            <h2 class="heading">{{item.name}}</h2>
+            <h2 class="heading">{{ item.name }}</h2>
             <label class="p-text">Description</label>
             <p class="paragraph">
-              {{item.description}}
+              {{ item.description }}
             </p>
           </div>
 
@@ -139,6 +147,8 @@ export default {
     return {
       showModal: false,
       showEditModal: false,
+      first_name: "",
+      last_name: "",
       loading: true,
       errors: [],
       name: "",
@@ -149,10 +159,23 @@ export default {
 
   mounted() {
     this.fetchItems();
+    this.fetchUserDetails();
   },
   methods: {
     toggleModal() {
       this.showModal = true;
+    },
+
+    async fetchUserDetails() {
+      try {
+        const response = await this.$store.dispatch("auth/fetchUser");
+        console.log(response, "response");
+
+        this.first_name = response.user.first_name;
+        this.last_name = response.user.last_name;
+      } catch (error) {
+        return this.errors.response.data.message;
+      }
     },
 
     closeModal() {
@@ -160,7 +183,7 @@ export default {
     },
 
     async createItems(e) {
-      e.preventDefault()
+      e.preventDefault();
       this.loading = true;
 
       if (!this.name || !this.description) {
@@ -182,7 +205,7 @@ export default {
 
         return response;
       } catch (error) {
-        this.errors = ['an error occurred'];
+        this.errors = ["an error occurred"];
       }
     },
 
@@ -191,16 +214,16 @@ export default {
       try {
         const response = await this.$store.dispatch("items/fetchAllItems");
 
-        console.log(response, 'response');
+        console.log(response, "response");
 
         this.itemsList = response.items;
 
-        console.log(this.itemList, 'itemssss')
+        console.log(this.itemList, "itemssss");
 
         this.loading = false;
       } catch (error) {
         this.loading = false;
-        this.errors = ['an error occurred'];
+        this.errors = ["an error occurred"];
       }
     },
 
@@ -240,12 +263,12 @@ export default {
 
         if (response) {
           this.loading = false;
-          alert('item successfully updated');
+          alert("item successfully updated");
 
           this.showEditModal = false;
         }
       } catch (error) {
-        this.errors = ['an error occurred'];
+        this.errors = ["an error occurred"];
       }
     },
 
@@ -259,7 +282,7 @@ export default {
       } catch (error) {
         return error.response.data.errors;
       }
-    }
+    },
   },
 };
 </script>
@@ -393,5 +416,21 @@ input {
   color: #fff;
   border-radius: 4px;
   border: 1px solid #999a9b;
+}
+
+.verify {
+  background: #FFF0CB;
+  display: flex;
+  justify-content: center;
+}
+
+.verify-text {
+  font-size: 14px;
+}
+
+.verify-button {
+  border: none;
+  color: #004cbd;
+  text-decoration: underline;
 }
 </style>

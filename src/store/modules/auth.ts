@@ -77,6 +77,20 @@ const actions = {
       return error.response.data;
     }
   },
+
+  async fetchUser({ commit }: { commit: Commit }) {
+    try {
+      const response = await axios.get("https://test-api.sytbuilder.com/me", {
+        headers: {
+          Authorization: `Bearer ${state.token}`,
+        },
+      });
+      commit("setUsers", response.data);
+      return response.data;
+    } catch (error: any) {
+      return error.response.data;
+    }
+  },
 };
 
 export default {
